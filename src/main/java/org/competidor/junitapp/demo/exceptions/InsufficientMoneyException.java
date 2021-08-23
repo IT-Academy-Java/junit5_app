@@ -1,2 +1,8 @@
-package org.competidor.junitapp.demo.exceptions;public class InsufficientMoneyException {
+package org.competidor.junitapp.demo.exceptions;
+
+public class InsufficientMoneyException extends RuntimeException{
+
+  public InsufficientMoneyException(String message) {
+    super(message);
+  }
 }
