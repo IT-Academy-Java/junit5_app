@@ -1,5 +1,7 @@
 package org.competidor.junitapp.demo;
 
+import org.competidor.junitapp.demo.exceptions.InsufficientMoneyException;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -37,7 +39,10 @@ public class Account {
     }
 
     public void debit(BigDecimal monto){
-        this.balance = this.balance.subtract(monto);
+        BigDecimal newBalance = this.balance = this.balance.subtract(monto);
+        if(newBalance.compareTo(BigDecimal.ZERO) < 0){
+            throw new InsufficientMoneyException("Insufficient money");
+        }
     }
 
     public void credit(BigDecimal monto){
@@ -61,4 +66,5 @@ public class Account {
     public int hashCode() {
         return Objects.hash(person, balance);
     }
+
 }
