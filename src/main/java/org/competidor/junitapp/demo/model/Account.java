@@ -1,4 +1,4 @@
-package org.competidor.junitapp.demo;
+package org.competidor.junitapp.demo.model;
 
 import org.competidor.junitapp.demo.exceptions.InsufficientMoneyException;
 
@@ -6,9 +6,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Account {
-
     private String person;
     private BigDecimal balance;
+    private Bank bank;
 
     public Account() {
     }
@@ -38,15 +38,23 @@ public class Account {
         this.balance = balance;
     }
 
-    public void debit(BigDecimal monto){
-        BigDecimal newBalance = this.balance = this.balance.subtract(monto);
+    public Bank getBank() {
+        return bank;
+    }
+
+    public void setBank(Bank bank) {
+        this.bank = bank;
+    }
+
+    public void debit(BigDecimal amount){
+        BigDecimal newBalance = this.balance = this.balance.subtract(amount);
         if(newBalance.compareTo(BigDecimal.ZERO) < 0){
             throw new InsufficientMoneyException("Insufficient money");
         }
     }
 
-    public void credit(BigDecimal monto){
-        this.balance = this.balance.add(monto);
+    public void credit(BigDecimal amount){
+        this.balance = this.balance.add(amount);
     }
 
     @Override
