@@ -12,15 +12,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class AccountTest {
   @Test
   void nameAccountTest() {
-    // First you have to instantiate the class to test
     Account account = new Account("Elenita", new BigDecimal("1000.12344"));
 
     String expected = "Elenita";
     String real = account.getPerson();
 
-    assertNotNull(account.getBalance());
-    assertEquals(expected, real);
-    assertTrue(real.equals("Elenita"));
+    assertNotNull(real, () -> "The account can't be null");
+    assertEquals(expected, real, () -> "The account name is not what was expected");
+    assertTrue(real.equals("Elenita"), () -> "The account name can be the same to the real: " + real);
   }
 
   @Test
