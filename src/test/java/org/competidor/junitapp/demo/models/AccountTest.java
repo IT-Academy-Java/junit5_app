@@ -1,6 +1,7 @@
 package org.competidor.junitapp.demo;
 
 import org.competidor.junitapp.demo.exceptions.InsufficientMoneyException;
+import org.competidor.junitapp.demo.model.Account;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
