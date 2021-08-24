@@ -1,6 +1,7 @@
 package org.competidor.junitapp.demo.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Bank {
@@ -9,10 +10,12 @@ public class Bank {
   List<Account> accountList;
 
   public Bank() {
+    this.accountList = new ArrayList<Account>();
   }
 
   public Bank(String name) {
     this.name = name;
+    this.accountList = new ArrayList<Account>();
   }
 
   public String getName() {
@@ -33,6 +36,7 @@ public class Bank {
 
   public void addAccount(Account account){
     accountList.add(account);
+    account.setBank(this);
   }
 
   public void transferMoney(Account accountOrigin, Account destinationAccount, BigDecimal moneyToTransfer){
