@@ -96,34 +96,39 @@ class AccountTest {
     bank.setName("Demo Bank");
     bank.transferMoney(account2, account1, new BigDecimal(500));
 
-    assertEquals("1000.8989", account2.getBalance().toPlainString());
-    assertEquals("3000", account1.getBalance().toPlainString());
-
-    assertEquals(2, bank.getAccountList().size());
-    assertEquals("Demo Bank", account1.getBank().getName());
-
-    assertEquals("Jane Doe", bank.getAccountList()
-      .stream()
-      .filter(c -> c.getPerson().equals("Jane Doe"))
-      .findFirst()
-      .get()
-      .getPerson()
+    assertAll(
+      () -> {
+        assertEquals("1000.8989", account2.getBalance().toPlainString());
+      },
+      () -> {
+        assertEquals("3000", account1.getBalance().toPlainString());
+      },
+      () -> {
+        assertEquals(2, bank.getAccountList().size());
+      },
+      () -> {
+        assertEquals("Demo Bank", account1.getBank().getName());
+      },
+      () -> {
+        assertEquals("Jane Doe", bank.getAccountList()
+          .stream()
+          .filter(c -> c.getPerson().equals("Jane Doe"))
+          .findFirst()
+          .get()
+          .getPerson()
+        );
+      },
+      () -> {
+        assertTrue(
+          bank
+            .getAccountList()
+            .stream()
+            .anyMatch(c -> c.getPerson().equals("Jane Doe"))
+        );
+      }
     );
 
-    /**
-     assertTrue(bank.getAccountList().stream()
-     .filter(c -> c.getPerson().equals("Jane Doe"))
-     .findFirst().isPresent()
-     );
-     */
 
-    // Simplifico lo anterior
-    assertTrue(
-      bank
-        .getAccountList()
-        .stream()
-        .anyMatch(c -> c.getPerson().equals("Jane Doe"))
-    );
   }
 
 }
