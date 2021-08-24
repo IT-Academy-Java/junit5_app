@@ -12,15 +12,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class AccountTest {
   @Test
   void nameAccountTest() {
-    // First you have to instantiate the class to test
     Account account = new Account("Elenita", new BigDecimal("1000.12344"));
 
     String expected = "Elenita";
     String real = account.getPerson();
 
-    assertNotNull(account.getBalance());
-    assertEquals(expected, real);
-    assertTrue(real.equals("Elenita"));
+    assertNotNull(real, () -> "The account can't be null");
+    assertEquals(expected, real, () -> "The account name is not what was expected");
+    assertTrue(real.equals("Elenita"), () -> "The account name can be the same to the real: " + real);
   }
 
   @Test
@@ -96,34 +95,39 @@ class AccountTest {
     bank.setName("Demo Bank");
     bank.transferMoney(account2, account1, new BigDecimal(500));
 
-    assertEquals("1000.8989", account2.getBalance().toPlainString());
-    assertEquals("3000", account1.getBalance().toPlainString());
-
-    assertEquals(2, bank.getAccountList().size());
-    assertEquals("Demo Bank", account1.getBank().getName());
-
-    assertEquals("Jane Doe", bank.getAccountList()
-      .stream()
-      .filter(c -> c.getPerson().equals("Jane Doe"))
-      .findFirst()
-      .get()
-      .getPerson()
+    assertAll(
+      () -> {
+        assertEquals("1000.8989", account2.getBalance().toPlainString());
+      },
+      () -> {
+        assertEquals("3000", account1.getBalance().toPlainString());
+      },
+      () -> {
+        assertEquals(2, bank.getAccountList().size());
+      },
+      () -> {
+        assertEquals("Demo Bank", account1.getBank().getName());
+      },
+      () -> {
+        assertEquals("Jane Doe", bank.getAccountList()
+          .stream()
+          .filter(c -> c.getPerson().equals("Jane Doe"))
+          .findFirst()
+          .get()
+          .getPerson()
+        );
+      },
+      () -> {
+        assertTrue(
+          bank
+            .getAccountList()
+            .stream()
+            .anyMatch(c -> c.getPerson().equals("Jane Doe"))
+        );
+      }
     );
 
-    /**
-     assertTrue(bank.getAccountList().stream()
-     .filter(c -> c.getPerson().equals("Jane Doe"))
-     .findFirst().isPresent()
-     );
-     */
 
-    // Simplifico lo anterior
-    assertTrue(
-      bank
-        .getAccountList()
-        .stream()
-        .anyMatch(c -> c.getPerson().equals("Jane Doe"))
-    );
   }
 
 }
