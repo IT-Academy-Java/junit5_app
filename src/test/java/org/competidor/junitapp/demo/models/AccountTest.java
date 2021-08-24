@@ -3,6 +3,7 @@ package org.competidor.junitapp.demo.models;
 import org.competidor.junitapp.demo.exceptions.InsufficientMoneyException;
 import org.competidor.junitapp.demo.model.Account;
 import org.competidor.junitapp.demo.model.Bank;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -11,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AccountTest {
   @Test
+  @DisplayName("Name account test")
   void nameAccountTest() {
     Account account = new Account("Elenita", new BigDecimal("1000.12344"));
 
@@ -23,6 +25,7 @@ class AccountTest {
   }
 
   @Test
+  @DisplayName("Account balance test")
   void accountBalanceTest() {
     Account account = new Account("Elenita", new BigDecimal("1000.12344"));
     assertNotNull(account.getBalance());
@@ -32,7 +35,8 @@ class AccountTest {
   }
 
   @Test
-  void testAccountReference() {
+  @DisplayName("Reference account test")
+  void referenceAccountTest() {
     Account account1 = new Account("John Doe", new BigDecimal("8900.9997"));
     Account account2 = new Account("John Doe", new BigDecimal("8900.9997"));
 
@@ -40,6 +44,7 @@ class AccountTest {
   }
 
   @Test
+  @DisplayName("Debit account test")
   void debitAccountTest() {
     Account account = new Account("Elena", new BigDecimal("1000.12345"));
     account.debit(new BigDecimal(100));
@@ -49,6 +54,7 @@ class AccountTest {
   }
 
   @Test
+  @DisplayName("Credit account test")
   void accountCreditTest() {
     Account account = new Account("Elena", new BigDecimal("1000.12345"));
     account.credit(new BigDecimal(100));
@@ -58,6 +64,7 @@ class AccountTest {
   }
 
   @Test
+  @DisplayName("Insufficient money exception test")
   void insufficientMoneyExceptionTest() {
     Account account = new Account("Elena", new BigDecimal("1000.12345"));
     Exception exception = assertThrows(InsufficientMoneyException.class, () -> {
@@ -71,6 +78,7 @@ class AccountTest {
   }
 
   @Test
+  @DisplayName("Transfer money to other account test")
   void transferMoneyToOtherAccountTest() {
     Account account1 = new Account("John Doe", new BigDecimal("2500"));
     Account account2 = new Account("Jane Doe", new BigDecimal("1500.8989"));
@@ -84,6 +92,7 @@ class AccountTest {
   }
 
   @Test
+  @DisplayName("Bank and account relationship test")
   void bankAndAccountRelationshipTest() {
     Account account1 = new Account("John Doe", new BigDecimal("2500"));
     Account account2 = new Account("Jane Doe", new BigDecimal("1500.8989"));
@@ -126,8 +135,6 @@ class AccountTest {
         );
       }
     );
-
-
   }
 
 }
